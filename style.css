@@ -1,0 +1,46 @@
+/* Configure the layout for automatically resizing canvas */
+html,
+body,
+#graph {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Stylize a documentation label */
+#read_more {
+    display: block;
+    position: absolute;
+    border-radius: 5px 5px 0 0;
+
+    background: rgba(255, 255, 255, .1);
+
+    padding: 2px 5px;
+
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+
+    pointer-events: none;
+}
+
+#read_more a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+    pointer-events: all;
+    text-decoration: none;
+
+    color: #ccc;
+    text-shadow: 1px 0px 1px rgb(238 238 238 / 50%);
+    transition: text-shadow 0.4s ease;
+}
+
+#read_more a:hover {
+    color: #eee;
+    text-shadow: 1px 0px 1px rgb(255 255 255 / 80%);
+}
+
+#read_more a:visited {
+    color: #ccc;
+}

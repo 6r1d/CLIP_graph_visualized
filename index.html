@@ -4,28 +4,22 @@
 <head>
   <meta charset="utf-8">
 
-  <title></title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <title>A visualization of the CLIP tag graph</title>
+
+  <meta name="description" content="A tag graph for well-known CLIP tags, linked by co-occurence">
+  <meta name="author" content="6r1d">
 
   <link rel="icon" type="image/png" href="./favicon.png" />
+  <link rel="stylesheet" type="text/css" href="./style.css">
 
   <script src="//unpkg.com/element-resize-detector/dist/element-resize-detector.min.js"></script>
   <script src="//unpkg.com/force-graph"></script>
-
-  <style>
-  html, body, #graph {
-      height: 100%;
-      width: 100%;
-      margin: 0;
-      overflow: hidden;
-  } 
-  </style>
-
 </head>
 
 <body>
   <div id="graph"></div>
+
+  <aside id="read_more"><a href="https://tagnet.readthedocs.io/">Documentation</a></aside>
 
   <script src="index.js"></script>
 </body>
