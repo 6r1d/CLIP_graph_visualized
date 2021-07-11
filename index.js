@@ -19,15 +19,22 @@ function approximateColor1ToColor2ByPercent(color1, color2, percent) {
 }
 
 function generateHex(r, g, b) {
-  r = r.toString(16)
-  g = g.toString(16)
-  b = b.toString(16)
-  // to address problem mentioned by Alexis Wilke:
-  while (r.length < 2) { r = "0" + r }
-  while (g.length < 2) { g = "0" + g }
-  while (b.length < 2) { b = "0" + b }
-  // Compose the color
-  return `#${r}${g}${b}`
+    let R = r.toString(16)
+    let G = g.toString(16)
+    let B = b.toString(16)
+    // Fix number formatting with
+    // a zero padding
+    while (R.length < 2) {
+        R = `0${R}`
+    }
+    while (G.length < 2) {
+        G = `0${G}`
+    }
+    while (B.length < 2) {
+        B = `0${B}`
+    }
+    // Compose the color
+    return `#${R}${G}${B}`
 }
 
 function mix(start, end, percent) {
@@ -60,6 +67,14 @@ let render = function(data) {
         .linkColor(l => l.color) 
         .nodeColor(n => n.color)
         .graphData(data)
+    // Resize the graph canvas element automatically
+    elementResizeDetectorMaker().listenTo(
+        document.getElementById('graph'),
+        function(element) {
+            Graph.width(element.offsetWidth)
+            Graph.height(element.offsetHeight)
+        }
+    )
 }
 
 // Preload JSON, render a graph when ready
