@@ -46,17 +46,42 @@ let clamp = function(number, min, max) {
     return Math.min(Math.max(number, min), max)
 }
 
+/* Find min and max value in an array */
+let min_and_max = function(numbers) {
+    return {
+        'min': Math.min.apply(null, numbers),
+        'max': Math.max.apply(null, numbers)
+    }
+}
+
+/*
+ * Range remapping
+ * Source: https://stackoverflow.com/questions/929103 (dragon788)
+ */
+let remap = function(x, in_min, in_max, out_min, out_max) {
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+}
+
 /* Render a graph */
 let render = function(data) {
+    // Find minimum and maximum values for node ranks and link weights
+    let ranks = min_and_max(
+        data.nodes.map((node) => node.rank)
+    )
+    let weights = min_and_max(
+        data.links.map((link) => link.weight)
+    )
     // Prepare node ids and colors
     data.nodes = data.nodes.map((node) => {
         node.id = `${node.id}`
-        node.color = approximateColor1ToColor2ByPercent('#0000ff', '#ff8c00', node.rank * 100)
+        node.rank = remap(node.rank * 10, ranks.min, ranks.max, 0.0, 1.0)
+        node.color = approximateColor1ToColor2ByPercent('#0000ff', '#ff8c00', node.rank)
         return node
     })
     // Prepare link colors
     data.links = data.links.map((link) => {
-        link.color = approximateColor1ToColor2ByPercent('#0000ff', '#ff8c00', clamp(link.weight * 1000, 0.0, 1.0))
+        link.weight = remap(link.weight * 10, weights.min, weights.max, 0.0, 1.0)
+        link.color = approximateColor1ToColor2ByPercent('#0000ff', '#ff8c00', link.weight)
         return link
     })
     // Create a graph instance,
