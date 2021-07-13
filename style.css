@@ -31,13 +31,13 @@ body,
     pointer-events: all;
     text-decoration: none;
 
-    color: #ccc;
+    color: rgba(255, 255, 255, 0.6);
     text-shadow: 1px 0px 1px rgb(238 238 238 / 50%);
-    transition: text-shadow 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 #read_more a:hover {
-    color: #eee;
+    color: rgba(255, 255, 255, 1.0);
     text-shadow: 1px 0px 1px rgb(255 255 255 / 80%);
 }
 
