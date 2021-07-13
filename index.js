@@ -62,7 +62,15 @@ let remap = function(x, in_min, in_max, out_min, out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 }
 
-/* Render a graph */
+// Configure color gradients
+let node_colors = ['#555555', '#ff8c00']
+let link_colors = ['#222222', '#ff8c00']
+let background_color = '#111122'
+
+let preprocess_graph_data = function() {
+}
+
+// Render a graph
 let render = function(data) {
     // Find minimum and maximum values for node ranks and link weights
     let ranks = min_and_max(
@@ -75,20 +83,21 @@ let render = function(data) {
     data.nodes = data.nodes.map((node) => {
         node.id = `${node.id}`
         node.rank = remap(node.rank * 10, ranks.min, ranks.max, 0.0, 1.0)
-        node.color = approximateColor1ToColor2ByPercent('#0000ff', '#ff8c00', node.rank)
+        node.color = approximateColor1ToColor2ByPercent(node_colors[0], node_colors[1], node.rank)
         return node
     })
     // Prepare link colors
     data.links = data.links.map((link) => {
         link.weight = remap(link.weight * 10, weights.min, weights.max, 0.0, 1.0)
-        link.color = approximateColor1ToColor2ByPercent('#0000ff', '#ff8c00', link.weight)
+        link.color = approximateColor1ToColor2ByPercent(link_colors[0], link_colors[1], link.weight)
         return link
     })
     // Create a graph instance,
-    // configure a color scheme
+    // configure a color scheme,
+    // load data
     const Graph = ForceGraph()
         (document.getElementById('graph'))
-        .backgroundColor('#222222')
+        .backgroundColor(background_color)
         .linkColor(l => l.color) 
         .nodeColor(n => n.color)
         .graphData(data)
