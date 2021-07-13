@@ -67,11 +67,7 @@ let node_colors = ['#555555', '#ff8c00']
 let link_colors = ['#222222', '#ff8c00']
 let background_color = '#111122'
 
-let preprocess_graph_data = function() {
-}
-
-// Render a graph
-let render = function(data) {
+let preprocess_graph_data = function(data) {
     // Find minimum and maximum values for node ranks and link weights
     let ranks = min_and_max(
         data.nodes.map((node) => node.rank)
@@ -92,6 +88,12 @@ let render = function(data) {
         link.color = approximateColor1ToColor2ByPercent(link_colors[0], link_colors[1], link.weight)
         return link
     })
+    return data
+}
+
+// Render a graph
+let render = function(data) {
+    let new_data = preprocess_graph_data(data)
     // Create a graph instance,
     // configure a color scheme,
     // load data
@@ -100,7 +102,7 @@ let render = function(data) {
         .backgroundColor(background_color)
         .linkColor(l => l.color) 
         .nodeColor(n => n.color)
-        .graphData(data)
+        .graphData(new_data)
     // Resize the graph canvas element automatically
     elementResizeDetectorMaker().listenTo(
         document.getElementById('graph'),
