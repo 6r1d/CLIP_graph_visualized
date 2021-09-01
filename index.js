@@ -78,13 +78,13 @@ let preprocess_graph_data = function(data) {
     // Prepare node ids and colors
     data.nodes = data.nodes.map((node) => {
         node.id = `${node.id}`
-        node.rank = remap(node.rank * 10, ranks.min, ranks.max, 0.0, 1.0)
+        node.rank = remap(node.rank, ranks.min, ranks.max, 0.0, 1.0)
         node.color = approximateColor1ToColor2ByPercent(node_colors[0], node_colors[1], node.rank)
         return node
     })
     // Prepare link colors
     data.links = data.links.map((link) => {
-        link.weight = remap(link.weight * 10, weights.min, weights.max, 0.0, 1.0)
+        link.weight = remap(link.weight, weights.min, weights.max, 0.0, 1.0)
         link.color = approximateColor1ToColor2ByPercent(link_colors[0], link_colors[1], link.weight)
         return link
     })
